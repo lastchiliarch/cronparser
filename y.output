@@ -1,0 +1,444 @@
+
+state 0
+	$accept: .cron $end 
+
+	ASTERISK  shift 4
+	NUMBER  shift 5
+	.  error
+
+	minutes  goto 3
+	value  goto 2
+	cron  goto 1
+
+state 1
+	$accept:  cron.$end 
+
+	$end  accept
+	.  error
+
+
+state 2
+	cron:  value.    (1)
+
+	.  reduce 1 (src line 30)
+
+
+state 3
+	value:  minutes.hours days months weeks 
+	minutes:  minutes.DASH minutes 
+	minutes:  minutes.COMMA minutes 
+
+	COMMA  shift 8
+	ASTERISK  shift 9
+	DASH  shift 7
+	NUMBER  shift 10
+	.  error
+
+	hours  goto 6
+
+state 4
+	minutes:  ASTERISK.    (3)
+	minutes:  ASTERISK.SLASH minutes 
+
+	SLASH  shift 11
+	.  reduce 3 (src line 41)
+
+
+state 5
+	minutes:  NUMBER.    (7)
+
+	.  reduce 7 (src line 52)
+
+
+state 6
+	value:  minutes hours.days months weeks 
+	hours:  hours.DASH hours 
+	hours:  hours.COMMA hours 
+
+	COMMA  shift 14
+	ASTERISK  shift 15
+	DASH  shift 13
+	NUMBER  shift 16
+	.  error
+
+	days  goto 12
+
+state 7
+	minutes:  minutes DASH.minutes 
+
+	ASTERISK  shift 4
+	NUMBER  shift 5
+	.  error
+
+	minutes  goto 17
+
+state 8
+	minutes:  minutes COMMA.minutes 
+
+	ASTERISK  shift 4
+	NUMBER  shift 5
+	.  error
+
+	minutes  goto 18
+
+state 9
+	hours:  ASTERISK.    (8)
+	hours:  ASTERISK.SLASH hours 
+
+	SLASH  shift 19
+	.  reduce 8 (src line 59)
+
+
+state 10
+	hours:  NUMBER.    (12)
+
+	.  reduce 12 (src line 70)
+
+
+state 11
+	minutes:  ASTERISK SLASH.minutes 
+
+	ASTERISK  shift 4
+	NUMBER  shift 5
+	.  error
+
+	minutes  goto 20
+
+state 12
+	value:  minutes hours days.months weeks 
+	days:  days.DASH days 
+	days:  days.COMMA days 
+
+	COMMA  shift 23
+	ASTERISK  shift 24
+	DASH  shift 22
+	STRING  shift 26
+	NUMBER  shift 25
+	.  error
+
+	months  goto 21
+
+state 13
+	hours:  hours DASH.hours 
+
+	ASTERISK  shift 9
+	NUMBER  shift 10
+	.  error
+
+	hours  goto 27
+
+state 14
+	hours:  hours COMMA.hours 
+
+	ASTERISK  shift 9
+	NUMBER  shift 10
+	.  error
+
+	hours  goto 28
+
+state 15
+	days:  ASTERISK.    (13)
+	days:  ASTERISK.SLASH days 
+
+	SLASH  shift 29
+	.  reduce 13 (src line 77)
+
+
+state 16
+	days:  NUMBER.    (17)
+
+	.  reduce 17 (src line 88)
+
+
+state 17
+	minutes:  minutes.DASH minutes 
+	minutes:  minutes DASH minutes.    (5)
+	minutes:  minutes.COMMA minutes 
+
+	.  reduce 5 (src line 46)
+
+
+state 18
+	minutes:  minutes.DASH minutes 
+	minutes:  minutes.COMMA minutes 
+	minutes:  minutes COMMA minutes.    (6)
+
+	.  reduce 6 (src line 49)
+
+
+state 19
+	hours:  ASTERISK SLASH.hours 
+
+	ASTERISK  shift 9
+	NUMBER  shift 10
+	.  error
+
+	hours  goto 30
+
+state 20
+	minutes:  ASTERISK SLASH minutes.    (4)
+	minutes:  minutes.DASH minutes 
+	minutes:  minutes.COMMA minutes 
+
+	.  reduce 4 (src line 43)
+
+
+state 21
+	value:  minutes hours days months.weeks 
+	months:  months.DASH months 
+	months:  months.COMMA months 
+
+	COMMA  shift 33
+	ASTERISK  shift 34
+	DASH  shift 32
+	STRING  shift 36
+	NUMBER  shift 35
+	.  error
+
+	weeks  goto 31
+
+state 22
+	days:  days DASH.days 
+
+	ASTERISK  shift 15
+	NUMBER  shift 16
+	.  error
+
+	days  goto 37
+
+state 23
+	days:  days COMMA.days 
+
+	ASTERISK  shift 15
+	NUMBER  shift 16
+	.  error
+
+	days  goto 38
+
+state 24
+	months:  ASTERISK.    (18)
+	months:  ASTERISK.SLASH months 
+
+	SLASH  shift 39
+	.  reduce 18 (src line 96)
+
+
+state 25
+	months:  NUMBER.    (22)
+
+	.  reduce 22 (src line 107)
+
+
+state 26
+	months:  STRING.    (23)
+
+	.  reduce 23 (src line 113)
+
+
+state 27
+	hours:  hours.DASH hours 
+	hours:  hours DASH hours.    (10)
+	hours:  hours.COMMA hours 
+
+	.  reduce 10 (src line 64)
+
+
+state 28
+	hours:  hours.DASH hours 
+	hours:  hours.COMMA hours 
+	hours:  hours COMMA hours.    (11)
+
+	.  reduce 11 (src line 67)
+
+
+state 29
+	days:  ASTERISK SLASH.days 
+
+	ASTERISK  shift 15
+	NUMBER  shift 16
+	.  error
+
+	days  goto 40
+
+state 30
+	hours:  ASTERISK SLASH hours.    (9)
+	hours:  hours.DASH hours 
+	hours:  hours.COMMA hours 
+
+	.  reduce 9 (src line 61)
+
+
+state 31
+	value:  minutes hours days months weeks.    (2)
+	weeks:  weeks.DASH weeks 
+	weeks:  weeks.COMMA weeks 
+
+	COMMA  shift 42
+	DASH  shift 41
+	.  reduce 2 (src line 35)
+
+
+state 32
+	months:  months DASH.months 
+
+	ASTERISK  shift 24
+	STRING  shift 26
+	NUMBER  shift 25
+	.  error
+
+	months  goto 43
+
+state 33
+	months:  months COMMA.months 
+
+	ASTERISK  shift 24
+	STRING  shift 26
+	NUMBER  shift 25
+	.  error
+
+	months  goto 44
+
+state 34
+	weeks:  ASTERISK.    (24)
+	weeks:  ASTERISK.SLASH weeks 
+
+	SLASH  shift 45
+	.  reduce 24 (src line 121)
+
+
+state 35
+	weeks:  NUMBER.    (28)
+
+	.  reduce 28 (src line 132)
+
+
+state 36
+	weeks:  STRING.    (29)
+
+	.  reduce 29 (src line 138)
+
+
+state 37
+	days:  days.DASH days 
+	days:  days DASH days.    (15)
+	days:  days.COMMA days 
+
+	.  reduce 15 (src line 82)
+
+
+state 38
+	days:  days.DASH days 
+	days:  days.COMMA days 
+	days:  days COMMA days.    (16)
+
+	.  reduce 16 (src line 85)
+
+
+state 39
+	months:  ASTERISK SLASH.months 
+
+	ASTERISK  shift 24
+	STRING  shift 26
+	NUMBER  shift 25
+	.  error
+
+	months  goto 46
+
+state 40
+	days:  ASTERISK SLASH days.    (14)
+	days:  days.DASH days 
+	days:  days.COMMA days 
+
+	.  reduce 14 (src line 79)
+
+
+state 41
+	weeks:  weeks DASH.weeks 
+
+	ASTERISK  shift 34
+	STRING  shift 36
+	NUMBER  shift 35
+	.  error
+
+	weeks  goto 47
+
+state 42
+	weeks:  weeks COMMA.weeks 
+
+	ASTERISK  shift 34
+	STRING  shift 36
+	NUMBER  shift 35
+	.  error
+
+	weeks  goto 48
+
+state 43
+	months:  months.DASH months 
+	months:  months DASH months.    (20)
+	months:  months.COMMA months 
+
+	.  reduce 20 (src line 101)
+
+
+state 44
+	months:  months.DASH months 
+	months:  months.COMMA months 
+	months:  months COMMA months.    (21)
+
+	.  reduce 21 (src line 104)
+
+
+state 45
+	weeks:  ASTERISK SLASH.weeks 
+
+	ASTERISK  shift 34
+	STRING  shift 36
+	NUMBER  shift 35
+	.  error
+
+	weeks  goto 49
+
+state 46
+	months:  ASTERISK SLASH months.    (19)
+	months:  months.DASH months 
+	months:  months.COMMA months 
+
+	.  reduce 19 (src line 98)
+
+
+state 47
+	weeks:  weeks.DASH weeks 
+	weeks:  weeks DASH weeks.    (26)
+	weeks:  weeks.COMMA weeks 
+
+	.  reduce 26 (src line 126)
+
+
+state 48
+	weeks:  weeks.DASH weeks 
+	weeks:  weeks.COMMA weeks 
+	weeks:  weeks COMMA weeks.    (27)
+
+	.  reduce 27 (src line 129)
+
+
+state 49
+	weeks:  ASTERISK SLASH weeks.    (25)
+	weeks:  weeks.DASH weeks 
+	weeks:  weeks.COMMA weeks 
+
+	.  reduce 25 (src line 123)
+
+
+10 terminals, 8 nonterminals
+30 grammar rules, 50/16000 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+57 working sets used
+memory: parser 21/240000
+0 extra closures
+63 shift entries, 1 exceptions
+22 goto entries
+0 entries saved by goto default
+Optimizer space used: output 67/240000
+67 table entries, 8 zero
+maximum spread: 10, maximum offset: 45
